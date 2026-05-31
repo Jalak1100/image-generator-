@@ -114,7 +114,11 @@ export default function MyGallery() {
               
               <div className="gallery-image-wrapper">
                 <img 
-                  src={img.url} 
+                  src={
+    img.url?.startsWith('http')
+      ? img.url
+      : `https://image-generator-bzub.onrender.com${img.url}`
+  }
                   alt={img.prompt} 
                   className="gallery-image" 
                   onClick={() => setSelectedImage(img)}
