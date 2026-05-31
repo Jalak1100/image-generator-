@@ -44,7 +44,7 @@ const handleGenerate = async (e) => {
   setIsGenerating(true);
 
   try {
-    const response = await fetch('/api/images/generate', {
+    const response = await fetch('https://image-generator-bzub.onrender.com/api/images/generate', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
