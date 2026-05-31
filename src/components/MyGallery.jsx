@@ -27,6 +27,7 @@ export default function MyGallery() {
       if (!response.ok) throw new Error('Failed to load gallery');
       
       const data = await response.json();
+      console.log("GALLERY DATA:", data);
       setImages(data);
     } catch (err) {
       setError('Could not load your images.');
