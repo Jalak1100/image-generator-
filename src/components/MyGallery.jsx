@@ -45,7 +45,7 @@ export default function MyGallery() {
 
     // Construct the URL to our new backend route
     // We encode the URL and filename to ensure they are passed safely in the query string
-    const downloadUrl = `/api/images/download?url=${encodeURIComponent(imageUrl)}&filename=${encodeURIComponent(fileName)}`;
+    const downloadUrl = `https://image-generator-bzub.onrender.com/api/images/download?url=${encodeURIComponent(imageUrl)}&filename=${encodeURIComponent(fileName)}`;
 
     // Create an invisible link and click it to trigger the download
     const link = document.createElement('a');
