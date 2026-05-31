@@ -16,7 +16,7 @@ export default function Register({ onSwitchToLogin }) {
     e.preventDefault();
     try {
       // Send Name, Email, and Password to your backend
-      const response = await fetch('/api/auth/register', {
+      const response = await fetch('https://image-generator-bzub.onrender.com/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, email, password }) 
