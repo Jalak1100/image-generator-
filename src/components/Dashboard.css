@@ -1,0 +1,19 @@
+.dashboard {
+  display: flex;
+  min-height: 100vh;
+  background-color: var(--primary-bg);
+}
+
+.dashboard-content {
+  flex: 1;
+  margin-left: 260px;
+  overflow-y: auto;
+  background: linear-gradient(135deg, var(--primary-bg) 0%, var(--secondary-bg) 100%);
+}
+
+@media (max-width: 768px) {
+  .dashboard-content {
+    margin-left: 0;
+    padding-top: 60px;
+  }
+}
