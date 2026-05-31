@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Trash2, Download, Image as ImageIcon, X } from 'lucide-react';
 import './MyGallery.css'; 
 
+const API_BASE = 'https://image-generator-bzub.onrender.com';
+
 export default function MyGallery() { 
   const [images, setImages] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -45,7 +47,7 @@ export default function MyGallery() {
 
     // Construct the URL to our new backend route
     // We encode the URL and filename to ensure they are passed safely in the query string
-    const downloadUrl = `/api/images/download?url=${encodeURIComponent(imageUrl)}&filename=${encodeURIComponent(fileName)}`;
+    const downloadUrl = `${API_BASE}/api/images/download?url=${encodeURIComponent(imageUrl)}&filename=${encodeURIComponent(fileName)}`;
 
     // Create an invisible link and click it to trigger the download
     const link = document.createElement('a');
@@ -65,7 +67,7 @@ export default function MyGallery() {
     if (!window.confirm("Are you sure you want to delete this masterpiece?")) return;
 
     try {
-      const response = await fetch(`/api/images/${imageId}`, {
+      const response = await fetch(`${API_BASE}/api/images/${imageId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -114,7 +116,7 @@ export default function MyGallery() {
               
               <div className="gallery-image-wrapper">
                 <img 
-                  src={img.url} 
+                  src={img.url?.startsWith('http') ? img.url : `${API_BASE}${img.url}`}
                   alt={img.prompt} 
                   className="gallery-image" 
                   onClick={() => setSelectedImage(img)}
@@ -161,7 +163,7 @@ export default function MyGallery() {
             
             <div className="modal-image-container">
               <img 
-                src={selectedImage.url} 
+                src={selectedImage.url?.startsWith('http') ? selectedImage.url : `${API_BASE}${selectedImage.url}`}
                 alt={selectedImage.prompt} 
                 className="full-size-image" 
               />
