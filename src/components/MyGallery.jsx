@@ -45,7 +45,7 @@ export default function MyGallery() {
 
     // Construct the URL to our new backend route
     // We encode the URL and filename to ensure they are passed safely in the query string
-    const downloadUrl = `https://image-generator-bzub.onrender.com/api/images/download?url=${encodeURIComponent(imageUrl)}&filename=${encodeURIComponent(fileName)}`;
+    const downloadUrl = `/api/images/download?url=${encodeURIComponent(imageUrl)}&filename=${encodeURIComponent(fileName)}`;
 
     // Create an invisible link and click it to trigger the download
     const link = document.createElement('a');
@@ -114,11 +114,7 @@ export default function MyGallery() {
               
               <div className="gallery-image-wrapper">
                 <img 
-                  src={
-    img.url?.startsWith('http')
-      ? img.url
-      : `https://image-generator-bzub.onrender.com${img.url}`
-  }
+                  src={img.url} 
                   alt={img.prompt} 
                   className="gallery-image" 
                   onClick={() => setSelectedImage(img)}
