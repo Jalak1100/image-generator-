@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const API_BASE = '/api'
+const API_BASE = 'https://image-generator-bzub.onrender.com/api'
 
 const client = axios.create({
   baseURL: API_BASE,
