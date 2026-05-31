@@ -16,7 +16,7 @@ export default function MyGallery() {
 
   const fetchMyGallery = async () => {
     try {
-      const response = await fetch('/api/images/gallery', {
+      const response = await fetch('https://image-generator-bzub.onrender.com/api/images/gallery', {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}` 
         }

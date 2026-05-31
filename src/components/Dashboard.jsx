@@ -20,7 +20,7 @@ export default function Dashboard() {
   useEffect(() => {
     const fetchCredits = async () => {
       try {
-        const response = await fetch('/api/images/credits', {
+        const response = await fetch('https://image-generator-bzub.onrender.com/api/images/credits', {
           headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
         });
         const data = await response.json();
@@ -62,7 +62,7 @@ export default function Dashboard() {
   // 2. THE FORCEFUL DOWNLOAD FUNCTION (Using the robust POST proxy method)
   const handleDownload = async (imageUrl, promptText) => {
     try {
-      const response = await fetch('/api/images/download-proxy', {
+      const response = await fetch('https://image-generator-bzub.onrender.com/api/images/download-proxy', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
