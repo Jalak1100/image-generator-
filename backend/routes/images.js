@@ -79,26 +79,17 @@ router.post('/generate', async (req, res) => {
         console.log('Style:', style);
         console.log('Aspect Ratio:', aspectRatio, '=>', width, 'x', height);
 
-        const apiKey = process.env.HF_API_KEY ? process.env.HF_API_KEY.trim() : '';
-        const response = await fetch(
-            'https://router.huggingface.co/hf-inference/models/black-forest-labs/FLUX.1-schnell',
-            {
-                headers: {
-                    Authorization: `Bearer ${apiKey}`,
-                    'Content-Type': 'application/json'
-                },
-                method: 'POST',
-                body: JSON.stringify({
-                    inputs: finalPrompt,
-                    parameters: {
-                        width,
-                        height
-                    }
-                }),
-            }
-        );
+        const imageUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(finalPrompt)}?width=${width}&height=${height}&nologo=true`;
 
-        if (!response.ok) throw new Error('Hugging Face API Error');
+console.log("Generating image:", imageUrl);
+
+const response = await fetch(imageUrl);
+
+        if (!response.ok) {
+    const errorText = await response.text();
+    console.log("Pollinations Response:", errorText);
+    throw new Error(`Pollinations API Error: ${response.status}`);
+}
 
         const buffer = await response.arrayBuffer();
         const fileName = `art_${Date.now()}.jpg`;
@@ -146,6 +137,18 @@ router.get('/gallery', verifyToken, async (req, res) => {
         res.json(userImages);
     } catch (error) {
         res.status(500).json({ error: "Failed to fetch gallery" });
+    }
+});
+
+    // Fetch user's previous images (frontend compatibility)
+router.get('/my-images', verifyToken, async (req, res) => {
+    try {
+        const userId = req.user.userId || req.user.id;
+        const userImages = await Image.find({ userId }).sort({ createdAt: -1 });
+        res.json(userImages);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Failed to fetch images" });
     }
 });
 
